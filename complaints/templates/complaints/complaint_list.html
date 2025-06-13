@@ -17,6 +17,14 @@
             <p class="card-text">{{ complaint.description|truncatewords:30 }}</p>
             <p><strong>Status:</strong> {{ complaint.status }}</p>
             <p><strong>Location:</strong> {{ complaint.location }}</p>
+            <p><strong>Status:</strong>
+                {% if complaint.status == 'pending' %}
+                <span class="badge bg-warning text-dark">Pending</span>
+                {% elif complaint.status == 'in_progress' %}
+                <span class="badge bg-primary">In Progress</span>
+                {% elif complaint.status == 'resolved' %}
+                <span class="badge bg-success">Resolved</span>
+                {% endif %}          </p>
             <p><strong>Upvotes:</strong> {{ complaint.upvotes }}</p>
     
             <!-- Upvote Button Form -->
