@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>All Complaints</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body class="container mt-5">
+    <h2>Community Complaints</h2>
+    <a href="/complaints/submit/" class="btn btn-success mb-3">+ Submit New Complaint</a>
+
+    {% for complaint in complaints %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ complaint.title }}</h5>
+            <p class="card-text">{{ complaint.description|truncatewords:30 }}</p>
+            <p><strong>Status:</strong> {{ complaint.status }}</p>
+            <p><strong>Location:</strong> {{ complaint.location }}</p>
+            <p><strong>Upvotes:</strong> {{ complaint.upvotes }}</p>
+            {% if complaint.photo %}
+            <img src="{{ complaint.photo.url }}" alt="Complaint photo" class="img-fluid rounded mt-2"
+                style="max-height: 200px;">
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <p>No complaints submitted yet.</p>
+    {% endfor %}
+</body>
+
+</html>

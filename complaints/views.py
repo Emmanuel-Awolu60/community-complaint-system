@@ -10,3 +10,7 @@ def submit_complaint(request):
     else:
         form = ComplaintForm()
     return render(request, 'complaints/submit_complaint.html', {'form': form})
+
+
+def complaint_submitted(request):
+    return render(request, 'complaints/complaint_submitted.html')
