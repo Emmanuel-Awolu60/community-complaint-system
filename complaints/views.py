@@ -17,8 +17,16 @@ def complaint_submitted(request):
     return render(request, 'complaints/complaint_submitted.html')
 
 def complaint_list(request):
-    complaints = Complaint.objects.order_by('-created_at')
-    return render(request, 'complaints/complaint_list.html', {'complaints': complaints})
+    status_filter = request.GET.get('status', '')  # Get ?status= from URL
+    if status_filter and status_filter != 'all':
+        complaints = Complaint.objects.filter(status=status_filter).order_by('-created_at')
+    else:
+        complaints = Complaint.objects.all().order_by('-created_at')
+
+    return render(request, 'complaints/complaint_list.html', {
+        'complaints': complaints,
+        'status_filter': status_filter  # Pass to template to keep dropdown selected
+    })
 
 def upvote_complaint(request, complaint_id):
     complaint = get_object_or_404(Complaint, id=complaint_id)

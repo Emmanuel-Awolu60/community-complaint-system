@@ -37,6 +37,17 @@
             <img src="{{ complaint.photo.url }}" alt="Complaint photo" class="img-fluid rounded mt-2"
                 style="max-height: 200px;">
             {% endif %}
+
+            <form method="get" class="mb-3">
+                <label for="status" class="form-label"><strong>Filter by Status:</strong></label>
+                <select name="status" id="status" class="form-select" onchange="this.form.submit()">
+                    <option value="all" {% if status_filter=='all' or not status_filter %}selected{% endif %}>All</option>
+                    <option value="pending" {% if status_filter=='pending' %}selected{% endif %}>Pending</option>
+                    <option value="in_progress" {% if status_filter=='in_progress' %}selected{% endif %}>In Progress</option>
+                    <option value="resolved" {% if status_filter=='resolved' %}selected{% endif %}>Resolved</option>
+                </select>
+            </form>
+              
         </div>
     </div>
     {% empty %}
