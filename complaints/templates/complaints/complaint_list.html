@@ -18,6 +18,13 @@
             <p><strong>Status:</strong> {{ complaint.status }}</p>
             <p><strong>Location:</strong> {{ complaint.location }}</p>
             <p><strong>Upvotes:</strong> {{ complaint.upvotes }}</p>
+    
+            <!-- Upvote Button Form -->
+            <form action="{% url 'upvote_complaint' complaint.id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-primary btn-sm">👍 Upvote</button>
+            </form>
+    
             {% if complaint.photo %}
             <img src="{{ complaint.photo.url }}" alt="Complaint photo" class="img-fluid rounded mt-2"
                 style="max-height: 200px;">
@@ -27,6 +34,7 @@
     {% empty %}
     <p>No complaints submitted yet.</p>
     {% endfor %}
+
 </body>
 
 </html>

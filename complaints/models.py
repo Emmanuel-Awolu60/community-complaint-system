@@ -13,7 +13,7 @@ class Complaint(models.Model):
     location = models.CharField(max_length=255)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)
-    upvotes = models.IntegerField(default=0)
+    upvotes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title

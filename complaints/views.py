@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import ComplaintForm
-from .models import Complaint  # <-- Make sure this is here!
+from .models import Complaint 
+from django.shortcuts import get_list_or_404
 
 def submit_complaint(request):
     if request.method == 'POST':
@@ -18,3 +19,9 @@ def complaint_submitted(request):
 def complaint_list(request):
     complaints = Complaint.objects.order_by('-created_at')
     return render(request, 'complaints/complaint_list.html', {'complaints': complaints})
+
+def upvote_complaint(request, complaint_id):
+    complaint = get_list_or_404(Complaint, id=complaint_id)
+    complaint.upvotes += 1
+    complaint.save()
+    return redirect('complaint_list')

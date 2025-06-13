@@ -2,8 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('submit/', views.sub, name= 'submit_comlaint'),
+    path('submit/', views.submit_complaint, name='submit_complaint'),
     path('submitted/', views.complaint_submitted, name='complaint_submitted'),
-    path('list/', views.comlaint_list, name='complaint_list')
+    path('list/', views.complaint_list, name='complaint_list'),
+    path('upvote/<int:complaint_id>/', views.upvote_complaint, name='upvote_complaint'),
 ]
-
