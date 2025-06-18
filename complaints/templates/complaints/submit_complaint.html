@@ -28,8 +28,7 @@
       {% csrf_token %} {{ form.as_p }}
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
-    <div id="map" style="height: 300px" class="md-3"></div>
+    <div id="map" style="height: 300px" class="mb-3"></div>
     <input type="hidden" id="id_latitude" name="latitude" />
     <input type="hidden" id="id_longitude" name="longitude" />
 
@@ -40,32 +39,31 @@
     ></script>
     <script>
       function initMap() {
-        var initial = { lat: 6.5244, lng: 3.3792 };
+        const initial = { lat: 6.5244, lng: 3.3792 }; // Lagos default
 
-        var map = new google.map.Map(document.getElementById("map"), {
+        const map = new google.maps.Map(document.getElementById("map"), {
           zoom: 13,
           center: initial,
         });
 
-        var marker = new google.map.Marker({
+        const marker = new google.maps.Marker({
           position: initial,
           map: map,
           draggable: true,
         });
 
-        // SET COORDINATES ON MARKER DRAG
-        google.map.event.addListener(marker, "dragend", function (event) {
-          document.getElementById("id_latitude").value = event.latLng.lat();
-          document.getElementById("id_longitude").value = event.latLng.lng();
-        });
+        function updateLatLngFields(latLng) {
+          document.getElementById("id_latitude").value = latLng.lat();
+          document.getElementById("id_longitude").value = latLng.lng();
+        }
 
-        // INITIALIZE WITH MARKER'S POSITION
-        document.getElementById("id_latitude").value = marker
-          .getPosition()
-          .lat();
-        document.getElementById("id_latitude").value = marker
-          .getPosition()
-          .lng();
+        // Set initial values
+        updateLatLngFields(marker.getPosition());
+
+        // Update on marker drag
+        marker.addListener("dragend", function () {
+          updateLatLngFields(marker.getPosition());
+        });
       }
     </script>
   </body>
