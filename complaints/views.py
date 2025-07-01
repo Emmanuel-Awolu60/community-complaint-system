@@ -38,10 +38,10 @@ def upvote_complaint(request, complaint_id):
 
 # TO LIST ALL COMPLAINTS & CREATE NEW
 class ComplaintListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Complaint.objects.all().order_by('-created_at')
+    queryset = Complaint.objects.all()
     serializer_class = ComplaintSerializer
 
 # TO RETRIEVE, UPDATE, DELETE SINGLE COMLAINT
 class ComplaintDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Complaint.object.all()
+    queryset = Complaint.objects.all()
     serializer_class = ComplaintSerializer
